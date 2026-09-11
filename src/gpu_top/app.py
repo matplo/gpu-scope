@@ -63,7 +63,21 @@ class GpuTopApp(App[None]):
         yield Footer()
 
     async def on_mount(self) -> None:
-        await asyncio.to_thread(self.backend.open)
+        try:
+            await asyncio.to_thread(self.backend.open)
+        except Exception as exc:
+            # is_available() is checked before the app is even launched, but
+            # that's a point-in-time check (a driver can vanish, a permission
+            # can be missing) -- fail here the same friendly way rather than
+            # letting a raw traceback escape the TUI.
+            self.exit(
+                return_code=1,
+                message=(
+                    f"Could not start the {self.backend.name!r} backend: {exc}\n"
+                    "Pass `--backend demo` to preview the UI without a GPU."
+                ),
+            )
+            return
         self._poll_timer = self.set_interval(self.interval, self.poll_once)
         await self.poll_once()
 

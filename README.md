@@ -63,6 +63,10 @@ gpu-top --list-backends  # show what's available on this host
 gpu-top --interval 0.5   # poll twice a second
 ```
 
+Running with no GPU present, or forcing `--backend nvidia`/`--backend amd` on a
+host without that vendor's tooling, exits with a short explanation and a
+`--backend demo` suggestion instead of a driver-library stack trace.
+
 Keys: `q` quit · `+` / `-` refresh rate · `d` toggle light/dark theme.
 
 ## Architecture

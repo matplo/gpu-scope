@@ -14,6 +14,21 @@ _NO_BACKEND_HINT = (
     "without a GPU."
 )
 
+_DEMO_SUGGESTION = "Pass `--backend demo` to preview the UI without a GPU."
+
+_UNAVAILABLE_HINTS = {
+    "nvidia": "No NVIDIA driver/GPU was detected (or the NVIDIA Management Library couldn't be loaded).",
+    "amd": "No AMD GPU was detected via `rocm-smi` -- is ROCm installed and `rocm-smi` on your PATH?",
+    "apple": "This isn't an Apple Silicon Mac (or its IOAccelerator registry has nothing to report).",
+}
+
+
+def _unavailable_message(backend_name: str) -> str:
+    hint = _UNAVAILABLE_HINTS.get(
+        backend_name, f"The {backend_name!r} backend reported itself unavailable on this host."
+    )
+    return f"{hint}\n{_DEMO_SUGGESTION}"
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -65,6 +80,9 @@ def main(argv: list[str] | None = None) -> int:
         except ValueError as exc:
             print(str(exc), file=sys.stderr)
             return 2
+        if not backend_cls.is_available():
+            print(_unavailable_message(backend_cls.name), file=sys.stderr)
+            return 1
     else:
         found = available_backends()
         if not found:
@@ -84,7 +102,7 @@ def main(argv: list[str] | None = None) -> int:
     backend = backend_cls()
     app = GpuTopApp(backend=backend, interval=args.interval)
     app.run()
-    return 0
+    return app.return_code or 0
 
 
 if __name__ == "__main__":
