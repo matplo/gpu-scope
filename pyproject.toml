@@ -3,14 +3,19 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "gpu-top"
+# PyPI distribution name -- NOT the CLI command (still `gpu-top`, see
+# [project.scripts] below) or the import name (still `gpu_top`). "gpu-top"
+# itself was blocked by PyPI's typosquat-similarity check against the
+# unrelated existing "gputop" package, so the install name is "gpu-scope"
+# while everything a user actually types day-to-day is unchanged.
+name = "gpu-scope"
 version = "0.2.0"
 description = "A modern, extensible TUI for monitoring GPU engagement (nvtop-inspired, built on Textual)"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [{ name = "gpu-top contributors" }]
-keywords = ["gpu", "nvidia", "monitoring", "tui", "textual", "rich", "nvtop"]
+keywords = ["gpu", "nvidia", "monitoring", "tui", "textual", "rich", "nvtop", "gpu-top"]
 classifiers = [
     "Environment :: Console",
     "Environment :: Console :: Curses",
@@ -30,7 +35,7 @@ dependencies = [
     # Pure-Python ctypes bindings (py3-none-any wheel, no compiled/platform-
     # specific parts) that only *call* the NVIDIA driver at runtime -- safe
     # to install everywhere, and is_available() no-ops cleanly where there's
-    # no driver. Bundling it means `pip install gpu-top` alone gets every
+    # no driver. Bundling it means `pip install gpu-scope` alone gets every
     # backend; AMD/Apple need no pip package at all (they shell out to
     # rocm-smi / ioreg, both system tools).
     "nvidia-ml-py>=12.560.30",
@@ -38,7 +43,7 @@ dependencies = [
 
 [project.optional-dependencies]
 # Kept as a no-op alias: nvidia-ml-py has been a core dependency since
-# 0.2.0, but `pip install gpu-top[nvidia]` (from muscle memory, or older
+# 0.2.0, but `pip install gpu-scope[nvidia]` (from muscle memory, or older
 # docs) still resolves instead of erroring on an unknown extra.
 nvidia = []
 dev = [

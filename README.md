@@ -34,13 +34,15 @@ Adding a vendor means writing one `GpuBackend` subclass that returns
 
 ## Install
 
-Not yet published to PyPI — install straight from GitHub:
-
 ```bash
-pip install "git+https://github.com/matplo/gpu-top.git"
+pip install gpu-scope
 ```
 
-(Once published to PyPI, this becomes `pip install gpu-top`.)
+The PyPI *distribution* name is `gpu-scope` — PyPI's typosquat-similarity
+check blocked `gpu-top` itself as too close to an unrelated existing
+package (`gputop`). Nothing else changes because of that: the command you
+run is still `gpu-top`, `import gpu_top` still works, and this repo is
+still `matplo/gpu-top`. Only the string after `pip install` is different.
 
 One install gets every backend — there's nothing to opt into. NVIDIA support
 (`nvidia-ml-py`) ships as a core dependency: it's a small, pure-Python
@@ -51,8 +53,11 @@ out to system tools (`rocm-smi`, `ioreg`) instead. The one thing `pip`
 can't do for you: AMD support only *activates* if ROCm's `rocm-smi` is on
 your `PATH` (a system package, install it via your distro/ROCm docs).
 
-`gpu-top[nvidia]` is still accepted (as a no-op) if you're used to typing
-it — it doesn't install anything beyond the plain command above.
+`pip install gpu-scope[nvidia]` is still accepted (as a no-op) if you're
+used to typing an extra — it doesn't install anything beyond the plain
+command above.
+
+Installing from source instead: `pip install "git+https://github.com/matplo/gpu-top.git"`.
 
 ## Usage
 
