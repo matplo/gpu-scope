@@ -20,10 +20,14 @@ designed to grow beyond NVIDIA.
 
 ## Install
 
+Not yet published to PyPI — install straight from GitHub:
+
 ```bash
-pip install gpu-top          # core + demo backend
-pip install "gpu-top[nvidia]"  # + NVIDIA support (nvidia-ml-py)
+pip install "git+https://github.com/matplo/gpu-top.git"                  # core + demo backend
+pip install "gpu-top[nvidia] @ git+https://github.com/matplo/gpu-top.git"  # + NVIDIA support (nvidia-ml-py)
 ```
+
+(Once published to PyPI, this becomes `pip install gpu-top` / `pip install "gpu-top[nvidia]"`.)
 
 ## Usage
 
