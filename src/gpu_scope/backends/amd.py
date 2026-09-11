@@ -22,8 +22,8 @@ import re
 import shutil
 import subprocess
 
-from gpu_top.backends.base import GpuBackend
-from gpu_top.models import GpuSnapshot, HostSnapshot
+from gpu_scope.backends.base import GpuBackend
+from gpu_scope.models import GpuSnapshot, HostSnapshot
 
 _TIMEOUT = 5.0
 _NUMBER_RE = re.compile(r"[-+]?\d*\.?\d+")

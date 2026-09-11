@@ -9,9 +9,9 @@ from __future__ import annotations
 
 import pytest
 
-from gpu_top import cli
-from gpu_top.backends.base import GpuBackend
-from gpu_top.models import HostSnapshot
+from gpu_scope import cli
+from gpu_scope.backends.base import GpuBackend
+from gpu_scope.models import HostSnapshot
 
 
 class _NeverAvailable(GpuBackend):
@@ -33,7 +33,7 @@ class _NeverAvailable(GpuBackend):
 
 @pytest.fixture
 def register_never_available(monkeypatch: pytest.MonkeyPatch):
-    import gpu_top.backends as backends_module
+    import gpu_scope.backends as backends_module
 
     monkeypatch.setitem(backends_module._BY_NAME, _NeverAvailable.name, _NeverAvailable)
 

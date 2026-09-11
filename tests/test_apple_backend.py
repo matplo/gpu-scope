@@ -10,8 +10,8 @@ import subprocess
 
 import pytest
 
-from gpu_top.backends import apple as apple_module
-from gpu_top.backends.apple import AppleBackend
+from gpu_scope.backends import apple as apple_module
+from gpu_scope.backends.apple import AppleBackend
 
 _SAMPLE_ENTRY = {
     "IORegistryEntryID": 4294968510,

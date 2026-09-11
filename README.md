@@ -1,4 +1,4 @@
-# gpu-top
+# gpu-scope
 
 A modern, [Textual](https://textual.textualize.io/)-based TUI for watching GPU
 engagement on a node — in the spirit of `nvtop`, built on Rich/Textual, and
@@ -38,11 +38,11 @@ Adding a vendor means writing one `GpuBackend` subclass that returns
 pip install gpu-scope
 ```
 
-The PyPI *distribution* name is `gpu-scope` — PyPI's typosquat-similarity
-check blocked `gpu-top` itself as too close to an unrelated existing
-package (`gputop`). Nothing else changes because of that: the command you
-run is still `gpu-top`, `import gpu_top` still works, and this repo is
-still `matplo/gpu-top`. Only the string after `pip install` is different.
+The project is `gpu-scope` end to end — `gpu-top` was blocked by PyPI's
+typosquat-similarity check against an unrelated existing package
+(`gputop`). The `gpu-top` name lives on as a second command, installed
+alongside `gpu-scope` and pointing at the exact same program, for anyone
+used to typing it.
 
 One install gets every backend — there's nothing to opt into. NVIDIA support
 (`nvidia-ml-py`) ships as a core dependency: it's a small, pure-Python
@@ -57,15 +57,15 @@ your `PATH` (a system package, install it via your distro/ROCm docs).
 used to typing an extra — it doesn't install anything beyond the plain
 command above.
 
-Installing from source instead: `pip install "git+https://github.com/matplo/gpu-top.git"`.
+Installing from source instead: `pip install "git+https://github.com/matplo/gpu-scope.git"`.
 
 ## Usage
 
 ```bash
-gpu-top                  # auto-detects the first available backend
-gpu-top --backend demo   # synthetic data, no GPU required
-gpu-top --list-backends  # show what's available on this host
-gpu-top --interval 0.5   # poll twice a second
+gpu-scope                  # auto-detects the first available backend (gpu-top works identically)
+gpu-scope --backend demo   # synthetic data, no GPU required
+gpu-scope --list-backends  # show what's available on this host
+gpu-scope --interval 0.5   # poll twice a second
 ```
 
 Running with no GPU present, or forcing `--backend nvidia`/`--backend amd` on a
@@ -77,7 +77,7 @@ Keys: `q` quit · `+` / `-` refresh rate · `d` toggle light/dark theme.
 ## Architecture
 
 ```
-gpu_top/
+gpu_scope/
 ├── models.py          # GpuSnapshot / GpuProcess / HostSnapshot dataclasses
 ├── backends/
 │   ├── base.py         # GpuBackend ABC — open() / poll() / close()
@@ -89,7 +89,7 @@ gpu_top/
 │   ├── meters.py         # Rich-renderable bars/sparklines (no extra deps)
 │   └── gpu_panel.py       # the per-GPU card widget
 ├── app.py               # Textual App: layout + polling loop
-└── cli.py                # argparse entry point (`gpu-top`)
+└── cli.py                # argparse entry point (`gpu-scope` / `gpu-top`)
 ```
 
 ## Development
@@ -97,12 +97,12 @@ gpu_top/
 ```bash
 pip install -e ".[dev]"
 pytest
-gpu-top --backend demo   # preview the UI with synthetic data, no GPU required
+gpu-scope --backend demo   # preview the UI with synthetic data, no GPU required
 ```
 
 For live Textual devtools (a separate log console while the TUI runs), see
 [the Textual docs](https://textual.textualize.io/guide/devtools/) — in short,
-run `textual console` in one terminal and `textual run --dev "gpu_top.cli:main"`
+run `textual console` in one terminal and `textual run --dev "gpu_scope.cli:main"`
 in another.
 
 ## License

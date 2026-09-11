@@ -10,18 +10,18 @@ from textual.app import App, ComposeResult
 from textual.containers import Grid
 from textual.widgets import Footer, Header, Static
 
-from gpu_top.backends.base import GpuBackend
-from gpu_top.models import HostSnapshot
-from gpu_top.widgets.gpu_panel import GpuPanel
+from gpu_scope.backends.base import GpuBackend
+from gpu_scope.models import HostSnapshot
+from gpu_scope.widgets.gpu_panel import GpuPanel
 
 MIN_INTERVAL = 0.2
 MAX_INTERVAL = 10.0
 
 
-class GpuTopApp(App[None]):
+class GpuScopeApp(App[None]):
     """nvtop-style live GPU dashboard."""
 
-    TITLE = "gpu-top"
+    TITLE = "gpu-scope"
 
     CSS = """
     Screen {

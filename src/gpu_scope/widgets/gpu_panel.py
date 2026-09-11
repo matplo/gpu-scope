@@ -10,8 +10,8 @@ from rich.text import Text
 from textual.reactive import reactive
 from textual.widgets import Static
 
-from gpu_top.models import GpuSnapshot
-from gpu_top.widgets.meters import human_bytes, level_color, meter_bar, sparkline
+from gpu_scope.models import GpuSnapshot
+from gpu_scope.widgets.meters import human_bytes, level_color, meter_bar, sparkline
 
 HISTORY_LEN = 90
 

@@ -3,18 +3,17 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-# PyPI distribution name -- NOT the CLI command (still `gpu-top`, see
-# [project.scripts] below) or the import name (still `gpu_top`). "gpu-top"
-# itself was blocked by PyPI's typosquat-similarity check against the
-# unrelated existing "gputop" package, so the install name is "gpu-scope"
-# while everything a user actually types day-to-day is unchanged.
+# "gpu-top" was blocked by PyPI's typosquat-similarity check against the
+# unrelated existing "gputop" package, so the project (name, import
+# package, primary command) is "gpu-scope" throughout. `gpu-top` is kept
+# as a second console-script alias below for anyone used to typing it.
 name = "gpu-scope"
 version = "0.2.0"
 description = "A modern, extensible TUI for monitoring GPU engagement (nvtop-inspired, built on Textual)"
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "gpu-top contributors" }]
+authors = [{ name = "gpu-scope contributors" }]
 keywords = ["gpu", "nvidia", "monitoring", "tui", "textual", "rich", "nvtop", "gpu-top"]
 classifiers = [
     "Environment :: Console",
@@ -53,13 +52,14 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/matplo/gpu-top"
+Homepage = "https://github.com/matplo/gpu-scope"
 
 [project.scripts]
-gpu-top = "gpu_top.cli:main"
+gpu-scope = "gpu_scope.cli:main"
+gpu-top = "gpu_scope.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/gpu_top"]
+packages = ["src/gpu_scope"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

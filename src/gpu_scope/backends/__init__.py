@@ -1,17 +1,17 @@
 """Backend discovery.
 
-Add a new vendor by writing a :class:`~gpu_top.backends.base.GpuBackend`
+Add a new vendor by writing a :class:`~gpu_scope.backends.base.GpuBackend`
 subclass and listing it in ``_ALL_BACKENDS`` below — the app, CLI, and tests
 never need to change.
 """
 
 from __future__ import annotations
 
-from gpu_top.backends.amd import AmdBackend
-from gpu_top.backends.apple import AppleBackend
-from gpu_top.backends.base import GpuBackend
-from gpu_top.backends.demo import DemoBackend
-from gpu_top.backends.nvidia import NvidiaBackend
+from gpu_scope.backends.amd import AmdBackend
+from gpu_scope.backends.apple import AppleBackend
+from gpu_scope.backends.base import GpuBackend
+from gpu_scope.backends.demo import DemoBackend
+from gpu_scope.backends.nvidia import NvidiaBackend
 
 #: Auto-discovered, in priority order. Backends that only make sense when
 #: explicitly requested (e.g. DemoBackend) are left out of this list and

@@ -2,7 +2,7 @@
 
 No AMD/ROCm hardware was available to capture real output, so these use
 JSON shaped after rocm-smi's documented ``--json`` schema, in two "eras" of
-key naming, to exercise the case-insensitive :func:`~gpu_top.backends.amd._find`
+key naming, to exercise the case-insensitive :func:`~gpu_scope.backends.amd._find`
 matching this backend relies on to survive that drift.
 """
 
@@ -13,8 +13,8 @@ import subprocess
 
 import pytest
 
-from gpu_top.backends import amd as amd_module
-from gpu_top.backends.amd import AmdBackend, _find
+from gpu_scope.backends import amd as amd_module
+from gpu_scope.backends.amd import AmdBackend, _find
 
 _ROCM_SMI_OUTPUT = {
     "card0": {

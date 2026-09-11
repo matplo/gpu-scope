@@ -1,12 +1,12 @@
-"""``gpu-top`` command-line entry point."""
+"""``gpu-scope`` command-line entry point (also installed as ``gpu-top``)."""
 
 from __future__ import annotations
 
 import argparse
 import sys
 
-from gpu_top import __version__
-from gpu_top.backends import available_backends, get_backend
+from gpu_scope import __version__
+from gpu_scope.backends import available_backends, get_backend
 
 _NO_BACKEND_HINT = (
     "NVIDIA and Apple Silicon support are built in; AMD needs ROCm's "
@@ -32,7 +32,8 @@ def _unavailable_message(backend_name: str) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="gpu-top",
+        # No explicit prog= -- argparse infers it from argv[0], so --help
+        # shows "gpu-scope" or "gpu-top" depending on which alias was run.
         description="An nvtop-style TUI for GPU engagement, built on Textual.",
     )
     parser.add_argument(
@@ -56,7 +57,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--version",
         action="version",
-        version=f"gpu-top {__version__}",
+        version=f"%(prog)s {__version__}",
     )
     return parser
 
@@ -97,10 +98,10 @@ def main(argv: list[str] | None = None) -> int:
         print("--interval must be positive", file=sys.stderr)
         return 2
 
-    from gpu_top.app import GpuTopApp  # deferred: keep --list-backends/--version fast
+    from gpu_scope.app import GpuScopeApp  # deferred: keep --list-backends/--version fast
 
     backend = backend_cls()
-    app = GpuTopApp(backend=backend, interval=args.interval)
+    app = GpuScopeApp(backend=backend, interval=args.interval)
     app.run()
     return app.return_code or 0
 

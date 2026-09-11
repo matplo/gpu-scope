@@ -1,7 +1,7 @@
 """Synthetic backend for developing/demoing the UI without a real GPU.
 
-Not auto-discovered by :func:`gpu_top.backends.available_backends` — select
-it explicitly with ``gpu-top --backend demo``.
+Not auto-discovered by :func:`gpu_scope.backends.available_backends` — select
+it explicitly with ``gpu-scope --backend demo`` (or ``gpu-top --backend demo``).
 """
 
 from __future__ import annotations
@@ -10,8 +10,8 @@ import math
 import random
 import time
 
-from gpu_top.backends.base import GpuBackend
-from gpu_top.models import GpuProcess, GpuSnapshot, HostSnapshot
+from gpu_scope.backends.base import GpuBackend
+from gpu_scope.models import GpuProcess, GpuSnapshot, HostSnapshot
 
 _FAKE_PROC_NAMES = ("python", "pytorch_worker", "ffmpeg", "blender", "llama.cpp")
 

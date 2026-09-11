@@ -2,7 +2,7 @@ name: Publish to PyPI
 
 # Trusted Publishing (OIDC) -- no PyPI token is stored anywhere. The publish
 # job authenticates to PyPI using a short-lived token minted for *this
-# exact* workflow run, which PyPI accepts only because matplo/gpu-top +
+# exact* workflow run, which PyPI accepts only because matplo/gpu-scope +
 # this workflow file + the "pypi" environment below were registered as a
 # trusted publisher in the PyPI web UI beforehand.
 #

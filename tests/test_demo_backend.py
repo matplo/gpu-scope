@@ -1,4 +1,4 @@
-from gpu_top.backends.demo import DemoBackend
+from gpu_scope.backends.demo import DemoBackend
 
 
 def test_demo_backend_reports_requested_gpu_count():

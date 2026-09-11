@@ -7,8 +7,8 @@ sub-second interval, and returns typed values instead of formatted strings.
 
 from __future__ import annotations
 
-from gpu_top.backends.base import GpuBackend
-from gpu_top.models import GpuProcess, GpuSnapshot, HostSnapshot
+from gpu_scope.backends.base import GpuBackend
+from gpu_scope.models import GpuProcess, GpuSnapshot, HostSnapshot
 
 try:
     import pynvml
@@ -70,8 +70,8 @@ class NvidiaBackend(GpuBackend):
             return
         if pynvml is None:
             raise RuntimeError(
-                "nvidia-ml-py is not installed (it's a core gpu-top dependency; "
-                "try `pip install --force-reinstall gpu-top`)"
+                "nvidia-ml-py is not installed (it's a core gpu-scope dependency; "
+                "try `pip install --force-reinstall gpu-scope`)"
             ) from _NVML_IMPORT_ERROR
         pynvml.nvmlInit()
         self._open = True

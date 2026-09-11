@@ -14,8 +14,8 @@ import pytest
 
 pynvml = pytest.importorskip("pynvml")
 
-from gpu_top.backends import nvidia as nvidia_module  # noqa: E402
-from gpu_top.backends.nvidia import NvidiaBackend  # noqa: E402
+from gpu_scope.backends import nvidia as nvidia_module  # noqa: E402
+from gpu_scope.backends.nvidia import NvidiaBackend  # noqa: E402
 
 
 class _Mem(SimpleNamespace):

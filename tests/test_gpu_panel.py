@@ -15,14 +15,14 @@ import asyncio
 import pytest
 from rich.console import Console
 
-from gpu_top.app import GpuTopApp
-from gpu_top.backends.demo import DemoBackend
+from gpu_scope.app import GpuScopeApp
+from gpu_scope.backends.demo import DemoBackend
 
 
 @pytest.mark.parametrize("gpu_count,size", [(1, (100, 30)), (2, (80, 30)), (8, (160, 60))])
 def test_panel_renders_without_orphaned_wrap(gpu_count: int, size: tuple[int, int]):
     async def run() -> list[str]:
-        app = GpuTopApp(backend=DemoBackend(gpu_count=gpu_count), interval=0.1)
+        app = GpuScopeApp(backend=DemoBackend(gpu_count=gpu_count), interval=0.1)
         async with app.run_test(size=size) as pilot:
             for _ in range(3):
                 await asyncio.sleep(0.05)

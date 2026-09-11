@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from gpu_top.models import HostSnapshot
+from gpu_scope.models import HostSnapshot
 
 
 class GpuBackend(ABC):

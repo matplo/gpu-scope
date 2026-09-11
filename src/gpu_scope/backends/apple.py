@@ -24,8 +24,8 @@ import platform
 import plistlib
 import subprocess
 
-from gpu_top.backends.base import GpuBackend
-from gpu_top.models import GpuSnapshot, HostSnapshot
+from gpu_scope.backends.base import GpuBackend
+from gpu_scope.models import GpuSnapshot, HostSnapshot
 
 _IOREG_CMD = ("ioreg", "-r", "-d", "1", "-c", "IOAccelerator", "-a")
 _TIMEOUT = 3.0

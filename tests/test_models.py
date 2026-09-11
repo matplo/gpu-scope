@@ -1,4 +1,4 @@
-from gpu_top.models import GpuSnapshot
+from gpu_scope.models import GpuSnapshot
 
 
 def _snapshot(**overrides) -> GpuSnapshot:
