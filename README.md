@@ -37,15 +37,22 @@ Adding a vendor means writing one `GpuBackend` subclass that returns
 Not yet published to PyPI — install straight from GitHub:
 
 ```bash
-pip install "git+https://github.com/matplo/gpu-top.git"                  # core + demo backend + AMD/Apple
-pip install "gpu-top[nvidia] @ git+https://github.com/matplo/gpu-top.git"  # + NVIDIA support (nvidia-ml-py)
+pip install "git+https://github.com/matplo/gpu-top.git"
 ```
 
-(Once published to PyPI, this becomes `pip install gpu-top` / `pip install "gpu-top[nvidia]"`.)
+(Once published to PyPI, this becomes `pip install gpu-top`.)
 
-The AMD backend needs ROCm's `rocm-smi` on your `PATH` (a system package,
-not something `pip` installs); the Apple backend needs nothing beyond macOS
-itself on Apple Silicon.
+One install gets every backend — there's nothing to opt into. NVIDIA support
+(`nvidia-ml-py`) ships as a core dependency: it's a small, pure-Python
+ctypes wrapper with no platform-specific build, so it installs cleanly
+everywhere and simply reports "unavailable" at runtime on a machine with no
+NVIDIA driver. AMD and Apple need no extra pip packages at all — they shell
+out to system tools (`rocm-smi`, `ioreg`) instead. The one thing `pip`
+can't do for you: AMD support only *activates* if ROCm's `rocm-smi` is on
+your `PATH` (a system package, install it via your distro/ROCm docs).
+
+`gpu-top[nvidia]` is still accepted (as a no-op) if you're used to typing
+it — it doesn't install anything beyond the plain command above.
 
 ## Usage
 

@@ -8,6 +8,12 @@ import sys
 from gpu_top import __version__
 from gpu_top.backends import available_backends, get_backend
 
+_NO_BACKEND_HINT = (
+    "NVIDIA and Apple Silicon support are built in; AMD needs ROCm's "
+    "`rocm-smi` on your PATH. Pass `--backend demo` to preview the UI "
+    "without a GPU."
+)
+
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -48,8 +54,7 @@ def main(argv: list[str] | None = None) -> int:
         found = available_backends()
         if not found:
             print("No GPU backends available on this host.")
-            print("(Try `pip install gpu-top[nvidia]` on a machine with an NVIDIA GPU,")
-            print(" or run with `--backend demo` to preview the UI.)")
+            print(_NO_BACKEND_HINT)
         for backend_cls in found:
             print(backend_cls.name)
         return 0
@@ -64,9 +69,7 @@ def main(argv: list[str] | None = None) -> int:
         found = available_backends()
         if not found:
             print(
-                "No GPU backends available on this host.\n"
-                "Install support for your vendor (e.g. `pip install gpu-top[nvidia]`),\n"
-                "or pass `--backend demo` to preview the UI without a GPU.",
+                f"No GPU backends available on this host.\n{_NO_BACKEND_HINT}",
                 file=sys.stderr,
             )
             return 1

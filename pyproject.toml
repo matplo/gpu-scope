@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gpu-top"
-version = "0.1.0"
+version = "0.2.0"
 description = "A modern, extensible TUI for monitoring GPU engagement (nvtop-inspired, built on Textual)"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -27,10 +27,20 @@ dependencies = [
     "textual>=0.58.0",
     "rich>=13.7.0",
     "psutil>=5.9.0",
+    # Pure-Python ctypes bindings (py3-none-any wheel, no compiled/platform-
+    # specific parts) that only *call* the NVIDIA driver at runtime -- safe
+    # to install everywhere, and is_available() no-ops cleanly where there's
+    # no driver. Bundling it means `pip install gpu-top` alone gets every
+    # backend; AMD/Apple need no pip package at all (they shell out to
+    # rocm-smi / ioreg, both system tools).
+    "nvidia-ml-py>=12.560.30",
 ]
 
 [project.optional-dependencies]
-nvidia = ["nvidia-ml-py>=12.560.30"]
+# Kept as a no-op alias: nvidia-ml-py has been a core dependency since
+# 0.2.0, but `pip install gpu-top[nvidia]` (from muscle memory, or older
+# docs) still resolves instead of erroring on an unknown extra.
+nvidia = []
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",

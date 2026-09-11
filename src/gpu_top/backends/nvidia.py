@@ -70,7 +70,8 @@ class NvidiaBackend(GpuBackend):
             return
         if pynvml is None:
             raise RuntimeError(
-                "nvidia-ml-py is not installed; install gpu-top[nvidia]"
+                "nvidia-ml-py is not installed (it's a core gpu-top dependency; "
+                "try `pip install --force-reinstall gpu-top`)"
             ) from _NVML_IMPORT_ERROR
         pynvml.nvmlInit()
         self._open = True
