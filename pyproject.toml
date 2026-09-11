@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gpu-top"
+version = "0.1.0"
+description = "A modern, extensible TUI for monitoring GPU engagement (nvtop-inspired, built on Textual)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "gpu-top contributors" }]
+keywords = ["gpu", "nvidia", "monitoring", "tui", "textual", "rich", "nvtop"]
+classifiers = [
+    "Environment :: Console",
+    "Environment :: Console :: Curses",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Topic :: System :: Hardware",
+    "Topic :: System :: Monitoring",
+]
+dependencies = [
+    "textual>=0.58.0",
+    "rich>=13.7.0",
+    "psutil>=5.9.0",
+]
+
+[project.optional-dependencies]
+nvidia = ["nvidia-ml-py>=12.560.30"]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "textual-dev>=1.5.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/matplo/gpu-top"
+
+[project.scripts]
+gpu-top = "gpu_top.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gpu_top"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
