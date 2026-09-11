@@ -86,14 +86,7 @@ class GpuPanel(Static):
         info.append("  ")
         info.append(self._field("Fan", f"{snap.fan_speed_pct:.0f}%" if snap.fan_speed_pct is not None else "—"))
         info.append("  ")
-        info.append(
-            self._field(
-                "Pwr",
-                f"{snap.power_draw_w:.0f}/{snap.power_limit_w:.0f}W"
-                if snap.power_draw_w is not None and snap.power_limit_w
-                else "—",
-            )
-        )
+        info.append(self._field("Pwr", self._power_text(snap)))
         info.append("\n")
         info.append(self._field("SM", f"{snap.clock_sm_mhz}MHz" if snap.clock_sm_mhz else "—"))
         info.append("  ")
@@ -127,6 +120,14 @@ class GpuPanel(Static):
         t.append(f"{label} ", style="grey58")
         t.append(value, style="white")
         return t
+
+    @staticmethod
+    def _power_text(snap: GpuSnapshot) -> str:
+        if snap.power_draw_w is None:
+            return "—"
+        if snap.power_limit_w:
+            return f"{snap.power_draw_w:.0f}/{snap.power_limit_w:.0f}W"
+        return f"{snap.power_draw_w:.0f}W"
 
     @staticmethod
     def _pct_text(pct: float | None) -> Text:
