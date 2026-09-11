@@ -1,28 +1,18 @@
 name: Publish to PyPI
 
-# Trusted Publishing (OIDC) -- no PyPI token is stored anywhere. Each
-# publishing job authenticates itself to PyPI/TestPyPI using a short-lived
-# token minted for *this exact* workflow run, which PyPI accepts only
-# because matplo/gpu-top + this workflow file + the environment below were
-# registered as a trusted publisher in the PyPI web UI beforehand.
+# Trusted Publishing (OIDC) -- no PyPI token is stored anywhere. The publish
+# job authenticates to PyPI using a short-lived token minted for *this
+# exact* workflow run, which PyPI accepts only because matplo/gpu-top +
+# this workflow file + the "pypi" environment below were registered as a
+# trusted publisher in the PyPI web UI beforehand.
 #
-# - A GitHub Release published on this repo -> publishes to real PyPI.
-# - Manually run (Actions tab -> Run workflow) -> publishes to TestPyPI by
-#   default, or to PyPI if you explicitly pick that target.
+# Runs on a published GitHub Release, or manually (Actions tab -> Run
+# workflow) for a re-run without cutting a new release.
 
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      target:
-        description: "Where to publish"
-        required: true
-        default: testpypi
-        type: choice
-        options:
-          - testpypi
-          - pypi
+  workflow_dispatch: {}
 
 jobs:
   test:
@@ -50,24 +40,7 @@ jobs:
           name: dist
           path: dist/
 
-  publish-testpypi:
-    if: github.event_name == 'workflow_dispatch' && inputs.target == 'testpypi'
-    needs: build
-    runs-on: ubuntu-latest
-    environment: testpypi
-    permissions:
-      id-token: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist/
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
-
   publish-pypi:
-    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.target == 'pypi')
     needs: build
     runs-on: ubuntu-latest
     environment: pypi
